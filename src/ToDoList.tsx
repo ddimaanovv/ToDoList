@@ -1,6 +1,6 @@
 import React from "react";
 
-type TaskType = {
+export type TaskType = {
   id: number;
   title: string;
   isDone: boolean;
@@ -9,9 +9,11 @@ type TaskType = {
 type PropsType = {
   title: string;
   tasks: Array<TaskType>;
+  deleteTask: Function;
+  filterTask: Function;
 };
 
-export function ToDoList({ title, tasks }: PropsType) {
+export function ToDoList({ title, tasks, deleteTask, filterTask }: PropsType) {
   return (
     <div>
       <h3>{title}</h3>
@@ -25,10 +27,14 @@ export function ToDoList({ title, tasks }: PropsType) {
             <li key={item.id}>
               <input type="checkbox" checked={item.isDone} />
               <span>{item.title}</span>
+              <button onClick={() => deleteTask(item.id)}>X</button>
             </li>
           );
         })}
       </ul>
+      <button onClick={() => filterTask("All")}>All</button>
+      <button onClick={() => filterTask("Active")}>Active</button>
+      <button onClick={() => filterTask("Complited")}>Complited</button>
     </div>
   );
 }
